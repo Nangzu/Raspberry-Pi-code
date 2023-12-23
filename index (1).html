@@ -1,0 +1,37 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motor Control</title>
+</head>
+<body>
+
+<h1>Control the Motor</h1>
+
+<!-- JavaScript 코드 추가 -->
+<script>
+    // 버튼 클릭 이벤트 처리
+    function sendMotorAction(action) {
+        // AJAX 요청
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://192.168.240.87:5000/control_motor", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send("motor_action=" + action);
+
+        // 요청 완료 후 동작
+        xhr.onload = function() {
+            console.log(xhr.responseText);
+        };
+    }
+</script>
+
+<!-- 버튼에 onClick 이벤트 추가 -->
+<form>
+    <button type="button" onclick="sendMotorAction('start')">Start Motor</button>
+    <button type="button" onclick="sendMotorAction('stop')">Stop Motor</button>
+</form>
+
+</body>
+</html>
